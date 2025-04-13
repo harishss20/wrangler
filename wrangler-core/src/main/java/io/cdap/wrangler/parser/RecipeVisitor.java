@@ -317,6 +317,26 @@ public final class RecipeVisitor extends DirectivesBaseVisitor<RecipeSymbol.Buil
     return builder;
   }
 
+  /**
+   * Visit a byte size value (e.g. "10KB", "1.5MB", etc)
+   */
+  @Override 
+  public RecipeSymbol.Builder visitByteSize(DirectivesParser.ByteSizeContext ctx) {
+    String value = ctx.BYTE_SIZE().getText();
+    builder.addToken(new ByteSize(value));
+    return builder;
+  }
+
+  /**
+   * Visit a time duration value (e.g. "100ms", "1.5s", etc)
+   */
+  @Override
+  public RecipeSymbol.Builder visitTimeDuration(DirectivesParser.TimeDurationContext ctx) {
+    String value = ctx.TIME_DURATION().getText();
+    builder.addToken(new TimeDuration(value));
+    return builder;
+  }
+
   private SourceInfo getOriginalSource(ParserRuleContext ctx) {
     int a = ctx.getStart().getStartIndex();
     int b = ctx.getStop().getStopIndex();

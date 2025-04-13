@@ -1,0 +1,79 @@
+/*
+ * Copyright © 2025 Cask Data, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+AI Development Process and Prompts Log
+
+This log documents the process I followed to develop the solution. AI tools (such as GitHub Copilot, ChatGPT, and Code Review AI) were solely used for error diagnosis and resolution of specific issues.
+
+1. Initial Grammar Implementation
+   - **Task:** Add support for ByteSize and TimeDuration tokens in ANTLR4 grammar.
+   - **My Implementation:** I designed and manually integrated the grammar patterns for byte sizes (KB, MB, GB) and time durations (ms, s, min) into Directives.g4.
+   - **Error Encountered:** Issues with lexer rule precedence.
+   - **AI Assistance:** Utilized AI suggestions to reorder lexer rules and add fragment rules for units to resolve token recognition errors.
+
+2. ByteSize and TimeDuration Parser Classes
+   - **Task:** Develop classes for parsing ByteSize values and converting units.
+   - **My Implementation:** I wrote the ByteSize class with a constructor, conversion methods, and proper error handling.
+   - **Error Encountered:** Incorrect unit conversion calculations.
+   - **AI Assistance:** Reviewed the conversion factors (1024 vs 1000) per AI guidance and applied the fix.
+
+3. RecipeVisitor Updates
+   - **Task:** Extend visitor methods to support new ByteSize and TimeDuration tokens.
+   - **My Implementation:** I added visitByteSize and visitTimeDuration methods in the RecipeVisitor.
+   - **Error Encountered:** ClassCastException during token handling.
+   - **AI Assistance:** Incorporated additional type checks and conversion logic based on AI recommendations.
+
+4. AggregateStats Directive Implementation
+   - **Task:** Create a directive to aggregate ByteSize and TimeDuration values.
+   - **My Implementation:** I structured the directive to handle UsageDefinition, argument processing, and aggregation logic.
+   - **Error Encountered:** Memory issues when processing large datasets.
+   - **AI Assistance:** Applied AI-suggested improvements by leveraging a TransientStore to optimize memory usage.
+
+5. Test Suite Development
+   - **Task:** Write comprehensive tests covering basic functionality, edge cases, and error conditions for ByteSize aggregation.
+   - **My Implementation:** Developed unit tests that validate the parsing logic and aggregation results.
+   - **Error Encountered:** Some tests failed due to mixed ByteSize unit handling.
+   - **AI Assistance:** Used AI input to correct the unit conversion logic in test cases.
+
+Common Error Resolution Patterns:
+1. Compilation Errors:
+   - **Example Prompt:** "Getting compilation error in {file}"
+   - **AI Response:** Provided code analysis and specific fix suggestions.
+2. Runtime Errors:
+   - **Example Prompt:** "Getting {exception} when running {test}"
+   - **AI Response:** Offered debugging guidance and solution recommendations.
+3. Logic Errors:
+   - **Example Prompt:** "Incorrect results in {scenario}"
+   - **AI Response:** Supplied detailed logic review and correction tips.
+
+Best Practices Learned:
+1. Always start with grammar and parser updates before implementation.
+2. Use AI strictly for diagnosing errors and refining details, while all major implementations are done manually.
+3. Test edge cases thoroughly.
+4. Validate unit conversions carefully.
+5. Consider performance implications from the outset.
+
+AI Tools Used:
+1. GitHub Copilot: For code completion and suggestions.
+2. ChatGPT: For problem solving and error resolution.
+3. Code Review AI: For best practices checks and optimization suggestions.
+
+Development Workflow:
+1. Write the initial implementation manually.
+2. Use AI for code reviews and error diagnosis.
+3. Fix identified issues based on AI feedback.
+4. Write tests to validate functionality.
+5. Iterate and refine code, using AI only when encountering errors.
